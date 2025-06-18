@@ -1,26 +1,29 @@
 package com.javeriana.ausencias.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
+@Table(name="Motivo_Ausencia")
 public class MotivoAusencia {
     @Id
     private String idMotivoAusencia;
+    @Column
     private String motivo;
-    @ManyToOne
-    @JoinColumn(name = "estado", referencedColumnName = "idEstado")
-    private EstadoAusencia estado;
+    @JsonIgnore
+    //@ManyToOne
+    @OneToMany(mappedBy = "motivoAusencia")
+    private List<RegistroAusencia> registroAusencia;
 
     public MotivoAusencia() {
     }
 
-    public MotivoAusencia(String idMotivoAusencia, String motivo, EstadoAusencia estado) {
+    public MotivoAusencia(String idMotivoAusencia, String motivo, List<RegistroAusencia> registroAusencia) {
         this.idMotivoAusencia = idMotivoAusencia;
         this.motivo = motivo;
-        this.estado = estado;
+        this.registroAusencia = registroAusencia;
     }
 
     public String getIdMotivoAusencia() {
@@ -39,11 +42,11 @@ public class MotivoAusencia {
         this.motivo = motivo;
     }
 
-    public EstadoAusencia getEstado() {
-        return estado;
+    public List<RegistroAusencia> getRegistroAusencia() {
+        return registroAusencia;
     }
 
-    public void setEstado(EstadoAusencia estado) {
-        this.estado = estado;
+    public void setRegistroAusencia(List<RegistroAusencia> registroAusencia) {
+        this.registroAusencia = registroAusencia;
     }
 }

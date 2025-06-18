@@ -1,34 +1,58 @@
 package com.javeriana.ausencias.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
+@Table(name="Registro_Ausencia")
 public class RegistroAusencia {
     @Id
     private String idRegistroAusencia;
+    @Column
     private String documento;
+    @Column
     private String nombre;
+    @Column
     private String fechaRegistro;
+    @Column
     private String fechaInicial;
+    @Column
     private String fechaFinal;
+    @Column
     private String emplId;
+    @Column
     private String dependencia;
+    @Column
     private String programa;
+    @Column
     private String correo;
+    @Column
     private String tipo;
+    @Column
     private String cargo;
+    @Column
     private String observacion;
+    @Column
     private String observacionAutor;
+    @Column
     private String reemplazo;
+    @Column
     private String autoriza;
-    private String idMotivo;
-    private String idEstado;
+    //@JsonIgnore
+    //@OneToMany(mappedBy = "registroAusencia")
+    @ManyToOne
+    private MotivoAusencia motivoAusencia;
+    //@JsonIgnore
+    //@OneToMany(mappedBy = "registroAusencia")
+    @ManyToOne
+    private EstadoAusencia estadoAusencia;
 
     public RegistroAusencia() {
     }
 
-    public RegistroAusencia(String idRegistroAusencia, String documento, String nombre, String fechaRegistro, String fechaInicial, String fechaFinal, String emplId, String dependencia, String programa, String correo, String tipo, String cargo, String observacion, String observacionAutor, String reemplazo, String autoriza, String idMotivo, String idEstado) {
+    public RegistroAusencia(String idRegistroAusencia, String documento, String nombre, String fechaRegistro, String fechaInicial, String fechaFinal, String emplId, String dependencia, String programa, String correo, String tipo, String cargo, String observacion, String observacionAutor, String reemplazo, String autoriza, MotivoAusencia motivoAusencia, EstadoAusencia estadoAusencia) {
         this.idRegistroAusencia = idRegistroAusencia;
         this.documento = documento;
         this.nombre = nombre;
@@ -45,8 +69,8 @@ public class RegistroAusencia {
         this.observacionAutor = observacionAutor;
         this.reemplazo = reemplazo;
         this.autoriza = autoriza;
-        this.idMotivo = idMotivo;
-        this.idEstado = idEstado;
+        this.motivoAusencia = motivoAusencia;
+        this.estadoAusencia = estadoAusencia;
     }
 
     public String getIdRegistroAusencia() {
@@ -177,19 +201,19 @@ public class RegistroAusencia {
         this.autoriza = autoriza;
     }
 
-    public String getIdMotivo() {
-        return idMotivo;
+    public MotivoAusencia getMotivoAusencia() {
+        return motivoAusencia;
     }
 
-    public void setIdMotivo(String idMotivo) {
-        this.idMotivo = idMotivo;
+    public void setMotivoAusencia(MotivoAusencia motivoAusencia) {
+        this.motivoAusencia = motivoAusencia;
     }
 
-    public String getIdEstado() {
-        return idEstado;
+    public EstadoAusencia getEstadoAusencia() {
+        return estadoAusencia;
     }
 
-    public void setIdEstado(String idEstado) {
-        this.idEstado = idEstado;
+    public void setEstadoAusencia(EstadoAusencia estadoAusencia) {
+        this.estadoAusencia = estadoAusencia;
     }
 }
